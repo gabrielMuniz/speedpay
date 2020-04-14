@@ -1,0 +1,7 @@
+.vs/
+SpeedPay.API/bin
+SpeedPay.API/obj
+SpeedPay.Domain/bin
+SpeedPay.Domain/obj
+SpeedPay.Infra.Data/bin
+SpeedPay.Infra.Data/obj
