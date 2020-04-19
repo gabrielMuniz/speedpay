@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SpeedPay.Domain.Entities;
 using SpeedPay.Domain.Interfaces.Repositories;
+using SpeedPay.Domain.Interfaces.Services;
 using System;
 using System.Collections.Generic;
 
@@ -11,30 +12,30 @@ namespace SpeedPay.API.Controllers
     public class ProviderController : Controller
     {
 
-        private IProviderRepository providerRepository;
+        private IProviderService _service;
 
-        public ProviderController(IProviderRepository providerRepository)
+        public ProviderController(IProviderService service)
         {
-            this.providerRepository = providerRepository;
+            _service = service;
         }
 
         [HttpGet]
         public ActionResult<List<Provider>> GetAll()
         {
-            return Ok(providerRepository.GetAll());
+            return Ok(_service.GetAll());
         }
 
         [HttpGet("{id}")]
         public ActionResult<List<Provider>> Get(string id)
         {
-            return Ok(providerRepository.GetById(Guid.Parse(id)));
+            return Ok(_service.GetById(Guid.Parse(id)));
         }
 
         [HttpDelete("{id}")]
         public ActionResult<List<Provider>> Remove(string id)
         {
-            var provider = providerRepository.GetById(Guid.Parse(id));
-            return Ok(providerRepository.Remove(provider));
+            var provider = _service.GetById(Guid.Parse(id));
+            return Ok(_service.Remove(provider));
         }
 
         [HttpPost]
@@ -44,7 +45,7 @@ namespace SpeedPay.API.Controllers
             {
                 provider.Id = Guid.NewGuid();
                 provider.CreatedAt = DateTime.Now;
-                providerRepository.Save(provider);
+                _service.Save(provider);
                 return Ok();
             }
             catch (Exception ex)

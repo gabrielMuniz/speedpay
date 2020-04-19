@@ -13,7 +13,6 @@ namespace SpeedPay.Domain.Interfaces.Repositories.Base
         public T Remove(T entity);
         public IEnumerable<T> GetAll();
         public IEnumerable<T> GetByQuery(Expression<Func<T, bool>> lambdaExpression);
-        public void SaveChanges();
 
     }
 }

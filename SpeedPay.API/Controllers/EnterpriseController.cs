@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SpeedPay.Domain.Entities;
-using SpeedPay.Domain.Interfaces.Repositories;
+using SpeedPay.Domain.Interfaces.Services;
 using System;
 using System.Collections.Generic;
 
@@ -11,30 +11,30 @@ namespace SpeedPay.API.Controllers
     public class EnterpriseController : Controller
     {
 
-        private IEnterpriseRepository _repository;
+        private IEnterpriseService _service;
 
-        public EnterpriseController(IEnterpriseRepository repository)
+        public EnterpriseController(IEnterpriseService service)
         {
-            _repository = repository;
+            _service = service;
         }
 
         [HttpGet]
         public ActionResult<List<Enterprise>> GetAll()
         {
-            return Ok(_repository.GetAll());
+            return Ok(_service.GetAll());
         }
 
         [HttpGet("{id}")]
         public ActionResult<List<Enterprise>> Get(string id)
         {
-            return Ok(_repository.GetById(Guid.Parse(id)));
+            return Ok(_service.GetById(Guid.Parse(id)));
         }
 
         [HttpDelete("{id}")]
         public ActionResult<List<Enterprise>> Remove(string id)
         {
-            var enterprise = _repository.GetById(Guid.Parse(id));
-            return Ok(_repository.Remove(enterprise));
+            var enterprise = _service.GetById(Guid.Parse(id));
+            return Ok(_service.Remove(enterprise));
         }
 
         [HttpPost]
@@ -43,7 +43,7 @@ namespace SpeedPay.API.Controllers
             try
             {
                 enterprise.Id = Guid.NewGuid();
-                _repository.Save(enterprise);
+                _service.Save(enterprise);
                 return Ok();
             }
             catch (Exception ex)

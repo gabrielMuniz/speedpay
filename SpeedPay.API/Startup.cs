@@ -7,6 +7,8 @@ using Microsoft.Extensions.Hosting;
 using SpeedPay.Domain.Entities.Base;
 using SpeedPay.Domain.Interfaces.Repositories;
 using SpeedPay.Domain.Interfaces.Repositories.Base;
+using SpeedPay.Domain.Interfaces.Services;
+using SpeedPay.Domain.Services;
 using SpeedPay.Infra.Data.Contexts;
 using SpeedPay.Infra.Data.Repositories;
 using SpeedPay.Infra.Data.Repositories.Base;
@@ -28,6 +30,12 @@ namespace SpeedPay.API
             services.AddDbContext<DefaultContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+            //Services
+            services.AddScoped<IProviderService, ProviderService>();
+            services.AddScoped<IPhoneService, PhoneService>();
+            services.AddScoped<IEnterpriseService, EnterpriseService>();
+
+            //Repositories
             services.AddScoped<IRepositoryBase<EntityBase>, RepositoryBase<EntityBase>>();
             services.AddScoped<IProviderRepository, ProviderRepository>();
             services.AddScoped<IEnterpriseRepository, EnterpriseRepository>();
