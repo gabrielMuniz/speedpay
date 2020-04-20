@@ -7,6 +7,7 @@ import { Switch, BrowserRouter as Router, Route } from 'react-router-dom';
 import AccessAlarm from '@material-ui/icons/AccessAlarm';
 import AirplanemodeActiveTwoTone from '@material-ui/icons/AirplanemodeActiveTwoTone';
 import SideBar from './components/SideBar';
+import FormPage from './pages/ProviderFormPage';
 
 const iconStyle = { color: 'white' };
 
@@ -55,6 +56,9 @@ class App extends React.Component {
               </Route>
               <Route path="/empresas">
                 <EnterpriseListPage rows={enterprises} />
+              </Route>
+              <Route path="/novo-fornecedor">
+                <FormPage />
               </Route>
             </Switch>
           </main>

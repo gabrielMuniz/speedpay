@@ -11,4 +11,8 @@ const getEnterprises = async () => {
     return enterprises.data;
 }
 
-export { getProviders, getEnterprises };
+const postProvider = async (provider) => {
+     await Axios.post(`${URL_API}provider`, JSON.stringify(provider));
+}
+
+export { getProviders, getEnterprises, postProvider };
